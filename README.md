@@ -12,6 +12,6 @@ Prod:
 terraform plan -var-file=prod/env_prod.tfvars  -state="prod/terraform-prod.tfstate"
 terraform apply -var-file=prod/env_prod.tfvars  -state="prod/terraform-prod.tfstate"
 ```
-```mermaid
-toto->>tttt->>ttt
-```
+<div class="mermaid">
+  toto->>tttt->>ttt
+</div>
