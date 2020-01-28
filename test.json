@@ -551,7 +551,7 @@
                     "type": "integer"
                 },
                 "MultiAZ": {
-                    "type": "boolean",
+                    "type": "string",
                     "default": "false"
                 }
             },
@@ -610,7 +610,7 @@
                     "default": 5432
                 },
                 "MultiAZ": {
-                    "type": "boolean",
+                    "type": "string",
                     "default": "false"
                 }
             },
