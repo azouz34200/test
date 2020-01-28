@@ -1,0 +1,457 @@
+openapi: 3.0.0
+paths:
+  /elasticsearch/access_keys:
+    delete:
+      responses: "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy_response"
+      operationId: delete_elastic_access_keys
+      parameters:
+        - name: X-Fields
+          in: header
+          description: An optional fields mask
+          schema:
+            type: string
+            format: mask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Elasticsearch_User_Keys_DELETE_input"
+        required: true
+      tags:
+        - elasticsearch_policy
+    post:
+      responses: "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Keys_POST_response"
+      operationId: post_elastic_access_keys
+      parameters:
+        - name: X-Fields
+          in: header
+          description: An optional fields mask
+          schema:
+            type: string
+            format: mask
+      requestBody:
+        $ref: "#/components/requestBodies/Elasticsearch_User_POST_input"
+      tags:
+        - elasticsearch_policy
+  /elasticsearch/policy:
+    delete:
+      responses: "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy_response"
+      operationId: delete_elastic_policy
+      parameters:
+        - name: X-Fields
+          in: header
+          description: An optional fields mask
+          schema:
+            type: string
+            format: mask
+      requestBody:
+        $ref: "#/components/requestBodies/Elasticsearch_Policy"
+      tags:
+        - elasticsearch_policy
+    post:
+      responses: "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy_response"
+      operationId: post_elastic_policy
+      parameters:
+        - name: X-Fields
+          in: header
+          description: An optional fields mask
+          schema:
+            type: string
+            format: mask
+      requestBody:
+        $ref: "#/components/requestBodies/Elasticsearch_Policy"
+      tags:
+        - elasticsearch_policy
+  /elasticsearch/users:
+    delete:
+      responses: "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User_response"
+      operationId: delete_elastic_user
+      parameters:
+        - name: X-Fields
+          in: header
+          description: An optional fields mask
+          schema:
+            type: string
+            format: mask
+      requestBody:
+        $ref: "#/components/requestBodies/Elasticsearch_User_POST_input"
+      tags:
+        - elasticsearch_policy
+    post:
+      responses: "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User_response"
+      operationId: post_elastic_user
+      parameters:
+        - name: X-Fields
+          in: header
+          description: An optional fields mask
+          schema:
+            type: string
+            format: mask
+      requestBody:
+        $ref: "#/components/requestBodies/Elasticsearch_User_POST_input"
+      tags:
+        - elasticsearch_policy
+  /metrics:
+    get:
+      responses: "200":
+          description: Success
+      summary: Flask endpoint to gather the metrics, will be called by Prometheus
+      operationId: get_metrics
+      tags:
+        - metrics
+  /ping:
+    get:
+      responses: "200":
+          description: Success
+      operationId: get_ping
+      tags:
+        - ping
+  "/rds/instance/describe/{trigram}/{env}/{region}/{app_name}":
+    parameters:
+      - name: trigram
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: env
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: app_name
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      responses: "200":
+          description: RDS found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RDS_INFO"
+        "404":
+          description: RDS not found.
+        "405":
+          description: RDS not found.
+      summary: Get RDS Information
+      description: 
+
+      operationId: get_rdsinfo
+      tags:
+        - rds
+  "/rds/instance/{trigram}/{env}/{region}/{app_name}":
+    parameters:
+      - name: trigram
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: env
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: app_name
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      responses: "200":
+          description: RDS delete.
+        "404":
+          description: RDS doesn't exists.
+        "405":
+          description: RDS not found.
+        "409":
+          description: RDS delete in progress.
+      summary: Delete RDS
+      operationId: delete_rds
+      tags:
+        - rds
+    post:
+      responses: "200":
+          description: RDS create.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRDS"
+        "405":
+          description: RDS not found.
+        "409":
+          description: RDS exists.
+      summary: Create RDS
+      operationId: post_rds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RDS"
+        required: true
+      tags:
+        - rds
+    get:
+      responses: "200":
+          description: RDS found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRDS"
+        "404":
+          description: RDS not found.
+        "405":
+          description: RDS not found.
+      summary: Get RDS Status
+      description: 
+
+      operationId: get_rds
+      tags:
+        - rds
+info:
+  title: AWS API
+  version: 0.0.1
+  description: AWS API to manage resources on AWS
+tags:
+  - name: elasticsearch_policy
+    description: Manager users for elasticsearch cluster and access policies
+  - name: rds
+    description: Manage RDS resource on  AWS
+  - name: metrics
+    description: Prometheus metrics
+  - name: ping
+    description: Ping tools
+servers:
+  - url: /v1
+components:
+  responses:
+    ParseError:
+      description: When a mask can't be parsed
+    MaskError:
+      description: When any error occurs on mask
+  requestBodies:
+    Elasticsearch_Policy:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Elasticsearch_Policy"
+      required: true
+    Elasticsearch_User_POST_input:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Elasticsearch_User_POST_input"
+      required: true
+  schemas:
+    RDS_INFO:
+      properties:
+        rds-postgres:
+          $ref: "#/components/schemas/RDSINFO"
+        total:
+          type: integer
+      type: object
+    RDSINFO:
+      properties:
+        DBName:
+          type: string
+        Address:
+          type: string
+        DBMasterUsername:
+          type: string
+          minLength: 5
+        DBEngineVersion:
+          type: string
+        DBInstanceClass:
+          type: string
+        DBAllocatedStorage:
+          type: string
+        DBBackupRetentionPeriod:
+          type: string
+        DBPortNumber:
+          type: integer
+        MultiAZ:
+          type: boolean
+          default: "false"
+      type: object
+    RDS:
+      required:
+        - DBAllocatedStorage
+        - DBBackupRetentionPeriod
+        - DBEngineVersion
+        - DBInstanceClass
+        - DBMasterPassword
+        - DBMasterUsername
+        - DBName
+        - DBPortNumber
+        - MultiAZ
+      properties:
+        DBName:
+          type: string
+        DBMasterPassword:
+          type: string
+          description: "at least one of each of the following: uppercase, lowercase,
+            number, and symbol character such as !#$%^&*()<>[]{}|_+-=."
+          minLength: 12
+        DBMasterUsername:
+          type: string
+          minLength: 5
+        DBEngineVersion:
+          type: string
+          description: "Postgres Version: 11.2,11.1,11.0,10.7"
+          default: "11.2"
+        DBInstanceClass:
+          type: string
+          description: "DB instance type: db.t2.medium,db.t2.large"
+          default: db.t2.medium
+        DBAllocatedStorage:
+          type: integer
+          description: Storage in G
+          default: 20
+          minimum: 20
+        DBBackupRetentionPeriod:
+          type: integer
+          default: 5
+          minimum: 0
+          maximum: 90
+        DBPortNumber:
+          type: integer
+          description: Postgres port
+          default: 5432
+        MultiAZ:
+          type: boolean
+          default: "false"
+      type: object
+    ListRDS:
+      properties:
+        rds-postgres:
+          $ref: "#/components/schemas/rds-postgres"
+        total:
+          type: integer
+      type: object
+    rds-postgres:
+      properties:
+        dbname:
+          type: string
+        status:
+          type: string
+        version:
+          type: string
+        Message:
+          type: string
+      type: object
+    Elasticsearch_User_POST_input:
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          description: IAM User name
+      type: object
+    User_response:
+      required:
+        - HTTPStatusCode
+        - HTTPStatusMessage
+      properties:
+        HTTPStatusCode:
+          type: string
+          description: HTTP status code
+        HTTPStatusMessage:
+          type: string
+          description: HTTP message
+      type: object
+    Elasticsearch_User_Keys_DELETE_input:
+      required:
+        - accesskey
+        - username
+      properties:
+        username:
+          type: string
+          description: IAM User name
+        accesskey:
+          type: string
+          description: Key ID
+      type: object
+    Policy_response:
+      properties:
+        HTTPStatusCode:
+          type: string
+        HTTPStatusMessage:
+          type: string
+      type: object
+    Keys_POST_response:
+      required:
+        - AccessKeyId
+        - HTTPStatusCode
+        - HTTPStatusMessage
+        - SecretAccessKey
+        - Username
+      properties:
+        Username:
+          type: string
+        AccessKeyId:
+          type: string
+        SecretAccessKey:
+          type: string
+        HTTPStatusCode:
+          type: string
+          description: HTTP status code
+        HTTPStatusMessage:
+          type: string
+          description: HTTP message
+      type: object
+    Elasticsearch_Policy:
+      required:
+        - business_line
+        - team_name
+        - username
+      properties:
+        username:
+          type: string
+          description: IAM User name
+        team_name:
+          type: string
+          description: Team Name
+        business_line:
+          type: string
+          description: Business line
+      type: object
