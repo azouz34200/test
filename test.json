@@ -1,0 +1,656 @@
+{
+    "swagger": "2.0",
+    "basePath": "/v1",
+    "paths": {
+        "/elasticsearch/access_keys": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Policy response"
+                        }
+                    }
+                },
+                "operationId": "delete_elastic_access_keys",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Elasticsearch User Keys DELETE input"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "elasticsearch_policy"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Keys POST response"
+                        }
+                    }
+                },
+                "operationId": "post_elastic_access_keys",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Elasticsearch User POST input"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "elasticsearch_policy"
+                ]
+            }
+        },
+        "/elasticsearch/policy": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Policy response"
+                        }
+                    }
+                },
+                "operationId": "delete_elastic_policy",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Elasticsearch Policy"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "elasticsearch_policy"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Policy response"
+                        }
+                    }
+                },
+                "operationId": "post_elastic_policy",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Elasticsearch Policy"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "elasticsearch_policy"
+                ]
+            }
+        },
+        "/elasticsearch/users": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User response"
+                        }
+                    }
+                },
+                "operationId": "delete_elastic_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Elasticsearch User POST input"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "elasticsearch_policy"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User response"
+                        }
+                    }
+                },
+                "operationId": "post_elastic_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Elasticsearch User POST input"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "elasticsearch_policy"
+                ]
+            }
+        },
+        "/metrics": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "Flask endpoint to gather the metrics, will be called by Prometheus",
+                "operationId": "get_metrics",
+                "tags": [
+                    "metrics"
+                ]
+            }
+        },
+        "/ping": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "operationId": "get_ping",
+                "tags": [
+                    "ping"
+                ]
+            }
+        },
+        "/rds/instance/describe/{trigram}/{env}/{region}/{app_name}": {
+            "parameters": [
+                {
+                    "name": "trigram",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "env",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "region",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "app_name",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "RDS found",
+                        "schema": {
+                            "$ref": "#/definitions/RDS_INFO"
+                        }
+                    },
+                    "405": {
+                        "description": "RDS not found."
+                    },
+                    "404": {
+                        "description": "RDS not found."
+                    }
+                },
+                "summary": "Get RDS Information",
+                "description": "<br>",
+                "operationId": "get_rdsinfo",
+                "tags": [
+                    "rds"
+                ]
+            }
+        },
+        "/rds/instance/{trigram}/{env}/{region}/{app_name}": {
+            "parameters": [
+                {
+                    "name": "trigram",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "env",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "region",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "app_name",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "responses": {
+                    "409": {
+                        "description": "RDS delete in progress."
+                    },
+                    "405": {
+                        "description": "RDS not found."
+                    },
+                    "404": {
+                        "description": "RDS doesn't exists."
+                    },
+                    "200": {
+                        "description": "RDS delete."
+                    }
+                },
+                "summary": "Delete RDS",
+                "operationId": "delete_rds",
+                "tags": [
+                    "rds"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "RDS create.",
+                        "schema": {
+                            "$ref": "#/definitions/ListRDS"
+                        }
+                    },
+                    "409": {
+                        "description": "RDS exists."
+                    },
+                    "405": {
+                        "description": "RDS not found."
+                    }
+                },
+                "summary": "Create RDS",
+                "operationId": "post_rds",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/RDS"
+                        }
+                    }
+                ],
+                "tags": [
+                    "rds"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "RDS found",
+                        "schema": {
+                            "$ref": "#/definitions/ListRDS"
+                        }
+                    },
+                    "405": {
+                        "description": "RDS not found."
+                    },
+                    "404": {
+                        "description": "RDS not found."
+                    }
+                },
+                "summary": "Get RDS Status",
+                "description": "<br>",
+                "operationId": "get_rds",
+                "tags": [
+                    "rds"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "AWS API",
+        "version": "0.0.1",
+        "description": "AWS API to manage resources on AWS"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "elasticsearch_policy",
+            "description": "Manager users for elasticsearch cluster and access policies"
+        },
+        {
+            "name": "rds",
+            "description": "Manage RDS resource on  AWS"
+        },
+        {
+            "name": "metrics",
+            "description": "Prometheus metrics"
+        },
+        {
+            "name": "ping",
+            "description": "Ping tools"
+        }
+    ],
+    "definitions": {
+        "Elasticsearch User POST input": {
+            "required": [
+                "username"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "description": "IAM User name"
+                }
+            },
+            "type": "object"
+        },
+        "User response": {
+            "required": [
+                "HTTPStatusCode",
+                "HTTPStatusMessage"
+            ],
+            "properties": {
+                "HTTPStatusCode": {
+                    "type": "string",
+                    "description": "HTTP status code"
+                },
+                "HTTPStatusMessage": {
+                    "type": "string",
+                    "description": "HTTP message"
+                }
+            },
+            "type": "object"
+        },
+        "Elasticsearch User Keys DELETE input": {
+            "required": [
+                "accesskey",
+                "username"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "description": "IAM User name"
+                },
+                "accesskey": {
+                    "type": "string",
+                    "description": "Key ID"
+                }
+            },
+            "type": "object"
+        },
+        "Policy response": {
+            "properties": {
+                "HTTPStatusCode": {
+                    "type": "string"
+                },
+                "HTTPStatusMessage": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Keys POST response": {
+            "required": [
+                "AccessKeyId",
+                "HTTPStatusCode",
+                "HTTPStatusMessage",
+                "SecretAccessKey",
+                "Username"
+            ],
+            "properties": {
+                "Username": {
+                    "type": "string"
+                },
+                "AccessKeyId": {
+                    "type": "string"
+                },
+                "SecretAccessKey": {
+                    "type": "string"
+                },
+                "HTTPStatusCode": {
+                    "type": "string",
+                    "description": "HTTP status code"
+                },
+                "HTTPStatusMessage": {
+                    "type": "string",
+                    "description": "HTTP message"
+                }
+            },
+            "type": "object"
+        },
+        "Elasticsearch Policy": {
+            "required": [
+                "business_line",
+                "team_name",
+                "username"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "description": "IAM User name"
+                },
+                "team_name": {
+                    "type": "string",
+                    "description": "Team Name"
+                },
+                "business_line": {
+                    "type": "string",
+                    "description": "Business line"
+                }
+            },
+            "type": "object"
+        },
+        "RDS_INFO": {
+            "properties": {
+                "rds-postgres": {
+                    "$ref": "#/definitions/RDSINFO"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "RDSINFO": {
+            "properties": {
+                "DBName": {
+                    "type": "string"
+                },
+                "Address": {
+                    "type": "string"
+                },
+                "DBMasterUsername": {
+                    "type": "string",
+                    "minLength": 5
+                },
+                "DBEngineVersion": {
+                    "type": "string"
+                },
+                "DBInstanceClass": {
+                    "type": "string"
+                },
+                "DBAllocatedStorage": {
+                    "type": "string"
+                },
+                "DBBackupRetentionPeriod": {
+                    "type": "string"
+                },
+                "DBPortNumber": {
+                    "type": "integer"
+                },
+                "MultiAZ": {
+                    "type": "boolean",
+                    "default": "false"
+                }
+            },
+            "type": "object"
+        },
+        "RDS": {
+            "required": [
+                "DBAllocatedStorage",
+                "DBBackupRetentionPeriod",
+                "DBEngineVersion",
+                "DBInstanceClass",
+                "DBMasterPassword",
+                "DBMasterUsername",
+                "DBName",
+                "DBPortNumber",
+                "MultiAZ"
+            ],
+            "properties": {
+                "DBName": {
+                    "type": "string"
+                },
+                "DBMasterPassword": {
+                    "type": "string",
+                    "description": "at least one of each of the following: uppercase, lowercase, number, and symbol character such as !#$%^&*()<>[]{}|_+-=.",
+                    "minLength": 12
+                },
+                "DBMasterUsername": {
+                    "type": "string",
+                    "minLength": 5
+                },
+                "DBEngineVersion": {
+                    "type": "string",
+                    "description": "Postgres Version: 11.2,11.1,11.0,10.7",
+                    "default": "11.2"
+                },
+                "DBInstanceClass": {
+                    "type": "string",
+                    "description": "DB instance type: db.t2.medium,db.t2.large",
+                    "default": "db.t2.medium"
+                },
+                "DBAllocatedStorage": {
+                    "type": "integer",
+                    "description": "Storage in G",
+                    "default": 20,
+                    "minimum": 20
+                },
+                "DBBackupRetentionPeriod": {
+                    "type": "integer",
+                    "default": 5,
+                    "minimum": 0,
+                    "maximum": 90
+                },
+                "DBPortNumber": {
+                    "type": "integer",
+                    "description": "Postgres port",
+                    "default": 5432
+                },
+                "MultiAZ": {
+                    "type": "boolean",
+                    "default": "false"
+                }
+            },
+            "type": "object"
+        },
+        "ListRDS": {
+            "properties": {
+                "rds-postgres": {
+                    "$ref": "#/definitions/rds-postgres"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "rds-postgres": {
+            "properties": {
+                "dbname": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "Message": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
+}
